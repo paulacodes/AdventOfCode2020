@@ -7,7 +7,8 @@ def part1():
 	    	upperRange = int(line.split('-')[1].split(' ')[0])
 	    	letter = line.split('-')[1].split(' ')[1].strip(':')
 	    	word = line.split('-')[1].split(' ')[2]
-	    	if word.count(letter) >= lowerRange and word.count(letter) <= upperRange:
+	    	if word.count(letter) >= lowerRange \
+	    	and word.count(letter) <= upperRange:
 	    		valid_passwords += 1
 	f.close()
 	print("Valid passwords:", str(valid_passwords))

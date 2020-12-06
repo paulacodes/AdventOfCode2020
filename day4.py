@@ -5,13 +5,21 @@ def check_validity(passport):
 	"""
 	data = {}
 	valid = True
-	if "byr:" not in passport or "iyr:" not in passport or "eyr:" not in passport or "hgt:" not in passport or "hcl:" not in passport or "ecl:" not in passport or "pid:" not in passport:
+	if "byr:" not in passport \
+	or "iyr:" not in passport \
+	or "eyr:" not in passport \
+	or "hgt:" not in passport \
+	or "hcl:" not in passport \
+	or "ecl:" not in passport \
+	or "pid:" not in passport:
 		return False
 	for pair in (passport.split(" ")):
 		if ":" in pair:
 			pair = pair.split(":")
 			data[pair[0]] = pair[1]
-	if not data['byr'].isnumeric() or not data['iyr'].isnumeric() or not data['eyr'].isnumeric():
+	if not data['byr'].isnumeric() \
+	or not data['iyr'].isnumeric() \
+	or not data['eyr'].isnumeric():
 		return False
 	if int(data['byr']) < 1920 or int(data['byr']) > 2002:
 		return False
@@ -59,10 +67,22 @@ def part1():
 			if line != "\n":
 				passport += line.strip("\n") + " "
 			else:
-				if "byr:" in passport and "iyr:" in passport and "eyr:" in passport and "hgt:" in passport and "hcl:" in passport and "ecl:" in passport and "pid:" in passport:
+				if "byr:" in passport \
+				and "iyr:" in passport \
+				and "eyr:" in passport \
+				and "hgt:" in passport \
+				and "hcl:" in passport \
+				and "ecl:" in passport \
+				and "pid:" in passport:
 					valid_passports += 1
 				passport = ""
-		if "byr:" in passport and "iyr:" in passport and "eyr:" in passport and "hgt:" in passport and "hcl:" in passport and "ecl:" in passport and "pid:" in passport:
+		if "byr:" in passport \
+		and "iyr:" in passport \
+		and "eyr:" in passport \
+		and "hgt:" in passport \
+		and "hcl:" in passport \
+		and "ecl:" in passport \
+		and "pid:" in passport:
 			valid_passports += 1
 	f.close()
 	print("Valid passports", str(valid_passports))

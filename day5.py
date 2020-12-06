@@ -23,7 +23,8 @@ def find_row(seat):
 		
 def find_column(seat):
 	"""
-	find_column returns the column of a seat based off of a 10-characer seat representation
+	find_column returns the column of a seat based off of a 10-characer seat 
+	representation
 	:param seat: the string representation of a seat
 	"""
 	lowest_col = 0

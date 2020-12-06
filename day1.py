@@ -1,6 +1,7 @@
 def multiply_two_numbers_that_sum_to_value(numbers, value):
 	"""
-	multiply_two_numbers_that_sum_to_value finds the two numbers in a list that sum to a certain value and returns the multiplied values
+	multiply_two_numbers_that_sum_to_value finds the two numbers in a list that 
+	sum to a certain value and returns the multiplied values
 	:param numbers: list of numbers
 	:param value: the value that the two numbers shuld sum up to
 	"""
@@ -15,7 +16,8 @@ def multiply_two_numbers_that_sum_to_value(numbers, value):
 
 def multiply_three_numbers_that_sum_to_value(numbers, value):
 	"""
-	multiply_three_numbers_that_sum_to_value finds the three numbers in a list that sum to a certain value and returns the multiplied values
+	multiply_three_numbers_that_sum_to_value finds the three numbers in a list 
+	that sum to a certain value and returns the multiplied values
 	:param numbers: list of numbers
 	:param value: the value that the three numbers should sum up to
 	"""

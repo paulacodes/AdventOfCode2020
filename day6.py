@@ -20,8 +20,7 @@ def check_yes_from_everyone_count(group_answer, people_in_group):
 	answers = {}
 	yes_answers = 0
 	for answer in group_answer:
-		answer_list = list(answer)
-		answers_no_dups = set(answer_list)
+		answers_no_dups = set(list(answer))
 		for char in answers_no_dups:
 			if char in answers:
 				answers[char] += 1

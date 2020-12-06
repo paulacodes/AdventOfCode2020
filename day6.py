@@ -25,11 +25,10 @@ def check_yes_from_everyone_count(group_answer, people_in_group):
 		for char in answers_no_dups:
 			if char in answers:
 				answers[char] += 1
+				if answers[char] == people_in_group:
+					yes_answers += 1
 			else:
 				answers[char] = 1
-	for char in answers:
-		if answers[char] == people_in_group:
-			yes_answers += 1
 	return(yes_answers)
 
 

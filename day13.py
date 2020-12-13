@@ -46,7 +46,7 @@ def chinese_remainder_theorem(buses):
 	chinese_remainder_theorem finds the earliest timestamp by applying the
 	Chinese remainder theorem to the buses, where the relationship between the
 	earliest timestamp and a bus of number n and a difference of y between the 
-	timestamp of the first bus and its timestamp can be represented as:
+	timestamp of the first bus and the timestamp of bus n can be represented as:
 	earliest_timestamp ≡ -y (mod n)
 	This function finds earliest_timestamp that satisfies the above congruency 
 	for all buses.

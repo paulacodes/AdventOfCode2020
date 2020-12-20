@@ -1,9 +1,6 @@
 import copy
 from heapq import nsmallest
 
-def flipped(listtree):
-    return [(flipped(x) if isinstance(x, list) else x)
-                             for x in reversed(listtree)]
 def flip_vertically(tile):
 	new_tile = []
 	for row in reversed(tile):
@@ -132,10 +129,6 @@ def part1():
 	for corner in corners:
 		prod *= int(corner)
 	print(prod)
-
-
-		
-
 
 if __name__ == "__main__":
 	print("Part 1:")

@@ -134,26 +134,35 @@ def part1():
 		#print("Flip vertically")
 		#print("\n".join(map("".join, flip_vertically(tiles[tile]))))
 		#print(new_tiles[tile])
-		new_tiles[tile].append(flip_vertically(tiles[tile]))
+		new_list = flip_vertically(tiles[tile])
+		if new_list not in new_tiles[tile]:
+			new_tiles[tile].append(new_list)
 		#print(new_tiles[tile])
 		# Flip horizontally
 		#print("Flip horizontally")
 		#print("\n".join(map("".join, flip_horizontally(tiles[tile]))))
-		new_tiles[tile].append(flip_horizontally(tiles[tile]))
+		new_list = flip_horizontally(tiles[tile])
+		if new_list not in new_tiles[tile]:
+			new_tiles[tile].append(new_list)
 		rotated_list = copy.deepcopy(tiles[tile])
 		for i in range(3):
 			# Rotate once
 			#print("Rotation", str(i))
 			rotated_list = copy.deepcopy(list(zip(*reversed(rotated_list))))
-			new_tiles[tile].append(rotated_list)
+			if rotated_list not in new_tiles[tile]:
+				new_tiles[tile].append(rotated_list)
 			#print("\n".join(map("".join, rotated_list)))
 			# Flip vertically
 			#print("Flip vertically")
-			new_tiles[tile].append(flip_vertically(rotated_list))
+			new_list = flip_vertically(rotated_list)
+			if new_list not in new_tiles[tile]:
+				new_tiles[tile].append(new_list)
 			#print("\n".join(map("".join, flip_vertically(rotated_list))))
 			# Flip horizontally
 			#print("Flip horizontally")
-			new_tiles[tile].append(flip_horizontally(rotated_list))
+			new_list = flip_horizontally(rotated_list)
+			if new_list not in new_tiles[tile]:
+				new_tiles[tile].append(new_list)
 			#print("\n".join(map("".join, flip_horizontally(rotated_list))))
 		print(len(new_tiles[tile]))
 

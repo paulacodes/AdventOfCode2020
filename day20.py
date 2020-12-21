@@ -1,5 +1,7 @@
 import copy
 from math import sqrt
+
+# Flipping functions
 def flip_vertically(tile):
 	new_tile = []
 	for row in reversed(tile):
@@ -14,6 +16,7 @@ def flip_horizontally(tile):
 		new_tile.append(row)
 	return(new_tile)
 
+# Functions to find tiles matching specific edges
 def find_matching_right_edges(tile, tiles, position = 0, used_tiles = []):
 	matching_edges = []
 	option = tiles[tile][position]
@@ -92,6 +95,7 @@ def part1():
 				data = []
 	tiles[tile] = data
 	total_number_of_rows = int(sqrt(len(tiles)))
+
 	# Generate all possibile orientations of tiles
 	new_tiles = copy.deepcopy(tiles)
 	for tile in tiles:
@@ -113,8 +117,9 @@ def part1():
 			new_list = flip_horizontally(rotated_list)
 			if new_list not in new_tiles[tile]:
 				new_tiles[tile].append(new_list)
-	prod = 1
+
 	# Loop through tiles and multiply tiles with only two sides (corners)
+	prod = 1
 	for tile in new_tiles:
 		sides_with_matches = 0
 		matches_right = find_matching_right_edges(tile, new_tiles)
@@ -147,6 +152,7 @@ def part2():
 				data = []
 	tiles[tile] = data
 	total_number_of_rows = int(sqrt(len(tiles)))
+
 	# Generate all possibile orientations of tiles
 	new_tiles = copy.deepcopy(tiles)
 	for tile in tiles:
@@ -168,7 +174,7 @@ def part2():
 			new_list = flip_horizontally(rotated_list)
 			if new_list not in new_tiles[tile]:
 				new_tiles[tile].append(new_list)
-	prod = 1
+
 	# Loop through tiles and get first tile with only two sides (a corner)
 	for tile in new_tiles:
 		sides_with_matches = 0
@@ -187,46 +193,46 @@ def part2():
 		if sides_with_matches == 2:
 			corner_slide = tile
 			break
+
+	# Based off of tile at top left corner, find all tiles on the top row
 	position = 0
 	used_tiles = []
 	used_tiles.append(tile)
 	first_row = [[] for _ in range(total_number_of_rows)]
 	full_image = [[[] for _ in range(total_number_of_rows)] for _ in range(total_number_of_rows)]
 	full_image_names_and_positions = [[[] for _ in range(total_number_of_rows)] for _ in range(total_number_of_rows)]
-
 	first_row[total_number_of_rows-1] = new_tiles[tile]
 	first_row_tile_names_and_positions = [[] for _ in range(total_number_of_rows)]
 	first_row_tile_names_and_positions[total_number_of_rows-1] = [tile, position]
-
-	for i in range(total_number_of_rows-1):
+	for i in range(total_number_of_rows-2,-1,-1):
 		matching_edges = find_matching_left_edges(tile, new_tiles, position, used_tiles)
 		if len(matching_edges) > 0:
 			tile = matching_edges[0][0]
 			position = matching_edges[0][1]
 			used_tiles.append(tile)
-			index = total_number_of_rows - 1 - i
-			first_row[index-1] = new_tiles[tile]
-			#print(new_tiles[tile])
-			first_row_tile_names_and_positions[index-1] = [tile,position]
+			first_row[i] = new_tiles[tile][position]
+			first_row_tile_names_and_positions[i] = [tile,position]
 		else:
+			print("NO MATCH")
 			break
 
-	#full_image[0] = first_row
-	#full_image_names_and_positions[0] = first_row_tile_names_and_positions
+	# Based off of tiles on top row, find the rest of the image
 	for spot in range(len(first_row)):
 		tile = first_row_tile_names_and_positions[spot][0]
-		full_image[0][spot] = tiles[tile]
 		position = first_row_tile_names_and_positions[spot][1]
+		full_image[0][spot] = new_tiles[tile][position]
 		for i in range(1,total_number_of_rows):
 			matching_edges = find_matching_bottom_edges(tile, new_tiles, position, used_tiles)
 			if len(matching_edges) > 0:
 				tile = matching_edges[0][0]
 				position = matching_edges[0][1]
 				used_tiles.append(tile)
-				full_image[i][spot] = tiles[tile]
+				full_image[i][spot] = new_tiles[tile][position]
 			else:
 				print("NO MATCH")
 				break
+
+	# Convert image to list of lists, excluding borders
 	final_rows = []
 	hashtag_count = 0
 	for row_of_tiles in full_image:
@@ -238,10 +244,12 @@ def part2():
 						if char != 0 and char != 9:
 							if tile[row][char] == "#":
 								hashtag_count += 1
-					rows[row].append(tile[row][char])
+							rows[row].append(tile[row][char])
 		for i in rows:
 			if len(i) > 0:
 				final_rows.append(i)
+
+	# Create all possible variations of image
 	final_row_variations = []
 	final_row_variations.append(final_rows)
 	final_row_variations.append(flip_vertically(final_rows))
@@ -257,7 +265,10 @@ def part2():
 		new_list = flip_horizontally(rotated_list)
 		if new_list not in final_row_variations:
 			final_row_variations.append(new_list)
+
+	# Look for monsters in all image variations
 	monsters_found = 0
+	found_monster = False
 	for variation in final_row_variations:
 		for row in range(1,len(variation)-1):
 			for col in range(0, len(variation[row])-19):
@@ -267,7 +278,11 @@ def part2():
 				and variation[row+1][col+1] == "#" and variation[row+1][col+4]=="#" and variation[row+1][col+7] == "#" \
 				and variation[row+1][col+10] == "#" and variation[row+1][col+13]=="#" and variation[row+1][col+16] == "#":
 					monsters_found += 1
+					found_monster = True
+		if found_monster:
+			break
 	print(hashtag_count - monsters_found * 15)
+
 if __name__ == "__main__":
 	print("Part 1:")
 	part1()

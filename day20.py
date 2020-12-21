@@ -92,7 +92,6 @@ def part1():
 				data = []
 	tiles[tile] = data
 	total_number_of_rows = int(sqrt(len(tiles)))
-	print(total_number_of_rows)
 	# Generate all possibile orientations of tiles
 	new_tiles = copy.deepcopy(tiles)
 	for tile in tiles:
@@ -229,19 +228,20 @@ def part2():
 				print("NO MATCH")
 				break
 	final_rows = []
+	hashtag_count = 0
 	for row_of_tiles in full_image:
 		rows = [[] for _ in range(10)]
 		for tile in row_of_tiles:
 			for row in range(len(tile)):
-				if row != 0 and row != 9:
-					for char in range(len(tile[row])):
-						if char != 0 and char != 9:
-							rows[row].append(tile[row][char])
+				#if row != 0 and row != 9:
+				for char in range(len(tile[row])):
+						#if char != 0 and char != 9:
+					if tile[row][char] == "#":
+						hashtag_count += 1
+					rows[row].append(tile[row][char])
 		for i in rows:
 			if len(i) > 0:
 				final_rows.append(i)
-	print(len(final_rows))
-	print(len(final_rows[0]))
 	final_row_variations = []
 	final_row_variations.append(final_rows)
 	final_row_variations.append(flip_vertically(final_rows))
@@ -257,6 +257,7 @@ def part2():
 		new_list = flip_horizontally(rotated_list)
 		if new_list not in final_row_variations:
 			final_row_variations.append(new_list)
+	monsters_found = 0
 	for variation in final_row_variations:
 		for row in range(1,len(variation)-1):
 			for col in range(0, len(variation[row])-19):
@@ -265,8 +266,8 @@ def part2():
 				and variation[row][col+18] == "#" and variation[row][col+19]=="#" and variation[row-1][col+18] == "#" \
 				and variation[row+1][col+1] == "#" and variation[row+1][col+4]=="#" and variation[row+1][col+7] == "#" \
 				and variation[row+1][col+10] == "#" and variation[row+1][col+13]=="#" and variation[row+1][col+16] == "#":
-					print("MONSTER FOUND")
-
+					monsters_found += 1
+	print(hashtag_count - monsters_found * 15)
 if __name__ == "__main__":
 	print("Part 1:")
 	part1()

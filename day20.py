@@ -233,11 +233,11 @@ def part2():
 		rows = [[] for _ in range(10)]
 		for tile in row_of_tiles:
 			for row in range(len(tile)):
-				#if row != 0 and row != 9:
-				for char in range(len(tile[row])):
-						#if char != 0 and char != 9:
-					if tile[row][char] == "#":
-						hashtag_count += 1
+				if row != 0 and row != 9:
+					for char in range(len(tile[row])):
+						if char != 0 and char != 9:
+							if tile[row][char] == "#":
+								hashtag_count += 1
 					rows[row].append(tile[row][char])
 		for i in rows:
 			if len(i) > 0:
